@@ -2,18 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://HaoES.github.io/about.html</loc>
-    <lastmod>2023-01-27T21:23:21.528Z</lastmod>
+    <lastmod>2023-01-27T21:33:56.608Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/welcome/index.html</loc>
-    <lastmod>2023-01-27T21:23:21.828Z</lastmod>
+    <lastmod>2023-01-27T21:33:56.888Z</lastmod>
+  </url>
+  <url>
+    <loc>https://HaoES.github.io/posts/hello-world/index.html</loc>
+    <lastmod>2023-01-27T21:33:57.158Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/post-with-code/index.html</loc>
-    <lastmod>2023-01-27T21:23:22.088Z</lastmod>
+    <lastmod>2023-01-27T21:33:57.428Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/index.html</loc>
-    <lastmod>2023-01-27T21:23:22.398Z</lastmod>
+    <lastmod>2023-01-27T21:33:57.728Z</lastmod>
   </url>
 </urlset>
