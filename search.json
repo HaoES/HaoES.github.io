@@ -7,10 +7,24 @@
     "text": "About this blog"
   },
   {
+    "objectID": "posts/Why-this-blog/index.html",
+    "href": "posts/Why-this-blog/index.html",
+    "title": "Why Blogging? (and How?)",
+    "section": "",
+    "text": "I’ve had a complex relationship with blogging. I’ve always wanted to blog but found it too much of a hassle.\nThen I stumbled upon this post and decided to start my own blog documenting my journey as a Machine Learning enthusiast.\nThis blog will principally be a way for me to digest what I’ve learned (the best way of learning is teaching), share my thoughts and the projects I do.\nI had two main choices for blogging, the first is Medium and the second is through Github Pages.\nFor no explainable reason I never liked Medium maybe because of the annoying reading limit it has when it asks you to connect (I hold grudges easily). As for Github Pages, I found Jekyll too much of a pain to deal with, too lazy to learn its intricacies.\nFortunately this year I decided to start the famous fast.ai course and Jeremy kept talking about Quarto and how it generates blog posts from Jupyter Notebooks. I also stumbled upon this blog of a fellow fast.ai student and used his posts to create my own blog.\nSo let me share with you How I did it:"
+  },
+  {
+    "objectID": "posts/Why-this-blog/index.html#installing-quarto-in-wsl",
+    "href": "posts/Why-this-blog/index.html#installing-quarto-in-wsl",
+    "title": "Why Blogging? (and How?)",
+    "section": "Installing Quarto in WSL",
+    "text": "Installing Quarto in WSL\nto install Quarto in WSL (or Ubuntu) via nbdev use:\nmamba install -c fastchan nbdev  \nnbdev_install_quarto"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Hamza’s Blog",
     "section": "",
-    "text": "No matching items"
+    "text": "Why Blogging? (and How?)\n\n\n\n\n\n\n\nblogging\n\n\nquarto\n\n\njupyter\n\n\nfastai\n\n\n\n\n\n\n\n\n\n\n\nFeb 3, 2023\n\n\nHamza Es-samaali\n\n\n\n\n\n\nNo matching items"
   }
 ]
