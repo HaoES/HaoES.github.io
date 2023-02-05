@@ -1,19 +1,12 @@
 ---
-title: "About"
-image: profile.jpg
-about:
-  template: jolla
-  links:
-    - icon: twitter
-      text: Twitter
-      href: https://twitter.com/0Kiriyama
-    - icon: linkedin
-      text: LinkedIn
-      href: https://linkedin.com/in/hamza-es
-    - icon: github
-      text: Github
-      href: https://github.com/HaoES
-
+title: ""
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: false
 ---
-
-About this blog

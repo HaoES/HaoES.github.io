@@ -2,11 +2,11 @@ project:
   type: website
 
 website:
-  title: "Hamza ES-SAMAALI"
+  title: "Hamza's Blog"
   navbar:
     right:
-      - text: Blog
-        href: blog.qmd 
+      - text: About
+        href: about.qmd 
       - icon: github
         href: https://github.com/HaoES
       - icon: twitter
@@ -15,8 +15,7 @@ website:
         href: https://www.linkedin.com/in/hamza-es/
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme: theme.scss
 
 
 

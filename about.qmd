@@ -1,0 +1,20 @@
+---
+title: "Hamza ES-SAMAALI"
+image: me.jpg
+about:
+  template: jolla
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/0Kiriyama
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com/in/hamza-es
+    - icon: github
+      text: Github
+      href: https://github.com/HaoES
+---
+
+I am currently a Data Science Professor at EMSI - Marrakech. I love learning as much as I love teaching. This blog is where I will be sharing my thoughts about Machine Learning related topics.
+
+
