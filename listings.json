@@ -1,8 +1,6 @@
 [
   {
-    "listing": "/index.html",
-    "items": [
-      "/posts/Why-this-blog/index.html"
-    ]
+    "listing": "/blog.html",
+    "items": []
   }
 ]

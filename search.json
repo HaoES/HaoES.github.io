@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this blog"
-  },
-  {
     "objectID": "posts/Why-this-blog/index.html",
     "href": "posts/Why-this-blog/index.html",
     "title": "Why Blogging? (and How?)",
@@ -21,10 +14,17 @@
     "text": "Installing Quarto in WSL\nto install Quarto in WSL (or Ubuntu) via nbdev use:\nmamba install -c fastchan nbdev  \nnbdev_install_quarto"
   },
   {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Hamza ES-SAMAALI",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Hamza’s Blog",
+    "title": "About",
     "section": "",
-    "text": "Why Blogging? (and How?)\n\n\n\n\n\n\n\nblogging\n\n\nquarto\n\n\njupyter\n\n\nfastai\n\n\n\n\n\n\n\n\n\n\n\nFeb 3, 2023\n\n\nHamza Es-samaali\n\n\n\n\n\n\nNo matching items"
+    "text": "About this blog"
   }
 ]
