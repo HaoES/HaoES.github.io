@@ -72,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-date','listing-title','listing-reading-time','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -137,7 +137,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(0)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="blogging">blogging <span class="quarto-category-count">(1)</span></div><div class="category" data-category="fastai">fastai <span class="quarto-category-count">(1)</span></div><div class="category" data-category="jupyter">jupyter <span class="quarto-category-count">(1)</span></div><div class="category" data-category="quarto">quarto <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
 
@@ -171,7 +171,47 @@ ul.task-list li input[type="checkbox"] {
     </div>
 </div>
 <div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="blogging,quarto,jupyter,fastai" data-listing-date-sort="1675378800000" data-listing-file-modified-sort="1675439366071" data-listing-reading-time-sort="4.09">
+<div class="body">
+<a href="./posts/Why-this-blog/index.html">
+<h3 class="no-anchor listing-title">
+Why Blogging? (and How?)
+</h3>
+<div class="listing-subtitle">
 
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('blogging'); return false;">
+blogging
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('quarto'); return false;">
+quarto
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('jupyter'); return false;">
+jupyter
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('fastai'); return false;">
+fastai
+</div>
+</div>
+<a href="./posts/Why-this-blog/index.html">
+<div class="listing-description">
+I’ve had a complex relationship with blogging. I’ve always wanted to blog but found it too much of a hassle.
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/Why-this-blog/index.html">
+<div class="listing-date">
+Feb 3, 2023
+</div>
+<div class="listing-reading-time">
+4 min
+</div>
+</a>
+</div>
+</div>
 </div>
 <div class="listing-no-matching d-none">
 No matching items
