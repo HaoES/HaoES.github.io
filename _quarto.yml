@@ -2,14 +2,17 @@ project:
   type: website
 
 website:
-  title: "HaoES.github.io"
+  title: "Hamza ES-SAMAALI"
   navbar:
     right:
-      - about.qmd
+      - text: Blog
+        href: blog.qmd 
       - icon: github
-        href: https://github.com/
+        href: https://github.com/HaoES
       - icon: twitter
-        href: https://twitter.com
+        href: https://twitter.com/0Kiriyama
+      - icon: linkedin
+        href: https://www.linkedin.com/in/hamza-es/
 format:
   html:
     theme: cosmo
