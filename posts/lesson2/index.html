@@ -351,43 +351,59 @@ That’s what I said myself when I was watching Jeremy doing his classification,
 <p>Now we should create a Gradio app that takes an input from the user and queries the model for its prediction and return it.<br>
 Gradio usually requires a python file named <code>app.py</code> but we will be doing things differently.<br>
 In the fastai course we used JupyterNotebooks and <code>nbdev</code> to create such file, to do so, create a new Jupyter Notebook (in the folder of your cloned repo) and fill the first cell with this code:</p>
-<p>::: {.cell 0=‘d’ 1=‘e’ 2=‘f’ 3=‘a’ 4=‘u’ 5=‘l’ 6=‘t’ 7=’_’ 8=‘e’ 9=‘x’ 10=‘p’ 11=’ ’ 12=‘a’ 13=‘p’ 14=‘p’}</p>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.vision.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>:::</p>
-<p>the first line is an indicator for <code>nbdev</code> to export the file and name it “app”. The rest is imports we will need.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&lt;add a pipe character here&gt;default_exp app</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>#|default_exp app</code></p>
+<p>Now let’s import fastai vision and gradio</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&lt;add a pipe character here&gt;export</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.vision.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>the first comment in the cell should be <code>#|default_exp app</code>, it is is an indicator for <code>nbdev</code> to export the file and name it “app”. The rest is imports we will need.</p>
 <p>Now move the exported <code>model.pkl</code> model to the folder of your repo and load it.</p>
-<p>::: {.cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>learn <span class="op">=</span> load_learner(<span class="st">'model.pkl'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>:::</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&lt;add a pipe character here&gt;export</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>learn <span class="op">=</span> load_learner(<span class="st">'model.pkl'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>NameError: name 'load_learner' is not defined</code></pre>
+</div>
+</div>
 <p>that <code>#|export</code> line indicates to <code>nbdev</code> that the code of this cell needs to be included in the final exported app.py, if you want to do some tests for example import some images and try the model on them you can do so on cells that do not have the comment on their first line.<br>
 Our model is now up and ready, let’s create a Gradio interface:</p>
-<p>::: {.cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>categories <span class="op">=</span> (<span class="st">'coriander'</span>, <span class="st">'parsley'</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify_image(img):</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    pred, idx, probs <span class="op">=</span> learn.predict(img)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">dict</span>(<span class="bu">zip</span>(categories,<span class="bu">map</span>(<span class="bu">float</span>,probs)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>:::</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&lt;add a pipe character here&gt;export</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>categories <span class="op">=</span> (<span class="st">'coriander'</span>, <span class="st">'parsley'</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify_image(img):</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    pred, idx, probs <span class="op">=</span> learn.predict(img)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">dict</span>(<span class="bu">zip</span>(categories,<span class="bu">map</span>(<span class="bu">float</span>,probs)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Let’s break this down a bit: - <code>categories</code> contains the categories that our classifier chooses from.</p>
 <p>Gradio requires us to give him a function that he will call, this function is <code>classify_image</code>, it takes an image as an arguments. the <code>learner</code> has a method predict that takes an input and returns 3 things: - <code>pred</code>: <code>True</code> for positive class, <code>False</code> for negative class - <code>idx</code>: gives the index of the class - <code>probs</code>: gives the probability that this item is in this class for example if we have two categories probs will be a (2,1) array with probs[0] the probability of the item being in class 0, and probs[1] the probability of it being in class 1.</p>
 <p>The function returns a dictionary with <code>categories</code> as keys and <code>float(probs)</code> as values, if you are not familiar with the <code>dict(zip())</code> paradigm, check up <a href="https://www.youtube.com/watch?v=dBgxirJG3K8&amp;ab_channel=Rodrigo%F0%9F%90%8D%F0%9F%93%9D">this video</a>.</p>
 <p>Now that we have our function set, let’s go and create the actual interface:</p>
-<p>::: {.cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> gr.inputs.Image(shape<span class="op">=</span>(<span class="dv">192</span>,<span class="dv">192</span>))</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> gr.outputs.Label()</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>examples <span class="op">=</span> [<span class="st">'coriander.jpg'</span>,<span class="st">'parsley.jpg'</span>]</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>intf <span class="op">=</span> gr.Interface(fn<span class="op">=</span>classify_image, inputs <span class="op">=</span> image, outputs <span class="op">=</span> label, examples <span class="op">=</span> examples)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>intf.launch(inline<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>:::</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&lt;add a pipe character here&gt;export</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> gr.inputs.Image(shape<span class="op">=</span>(<span class="dv">192</span>,<span class="dv">192</span>))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> gr.outputs.Label()</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>examples <span class="op">=</span> [<span class="st">'coriander.jpg'</span>,<span class="st">'parsley.jpg'</span>]</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>intf <span class="op">=</span> gr.Interface(fn<span class="op">=</span>classify_image, inputs <span class="op">=</span> image, outputs <span class="op">=</span> label, examples <span class="op">=</span> examples)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>intf.launch(inline<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>We created an <code>image</code> input object and a <code>label</code> output object. We also added two images to our main folder of actual coriander and parsley respectively named <code>coriander.jpg</code> and <code>parsley.jpg</code>.</p>
 <p>Then we proceed to creating an interface that takes as parameters: - <code>fn</code>: the function <code>classify_image</code> - <code>inputs</code>: the input image - <code>outputs</code>: the output label - <code>examples</code>: this is optional, use it if you want to add examples to help the user.</p>
-<p>Our notebook is ready to be converted into a Gradio app! We will use <code>nbdev</code> to do so:</p>
+<p>Our notebook is ready to be converted into a Gradio app! We will use <code>nbdev</code> to do so add this cell to the bottom of your notebook and run it:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nbdev</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>nbdev.export.nb_export(<span class="st">'app.ipynb'</span>, <span class="st">'app'</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Export successful'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nbdev</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>nbdev.export.nb_export(<span class="st">'app.ipynb'</span>, <span class="st">'app'</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Export successful'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>We are almost done, all we need to do now is to create a requirements.txt file and fill it with the following:</p>
+<pre><code>fastai
+torch
+gradio</code></pre>
 <p>Everything is good now, let’s push this to HuggingFace:<br>
 You can either do this from the terminal (reminder: make sure to install git lfs) using the following commands: <code>git add .</code><br>
 <code>git commit -m "add your custom message"</code><br>
