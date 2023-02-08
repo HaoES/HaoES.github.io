@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Hamza">
+<meta name="dcterms.date" content="2023-02-08">
+
+<title>Hamza’s Blog - A coriander قزبر vs معدنوس Parsley Classifier</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Hamza’s Blog</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/HaoES"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/0Kiriyama"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/hamza-es/"><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#step-1-training-the-model" id="toc-step-1-training-the-model" class="nav-link active" data-scroll-target="#step-1-training-the-model">Step 1: Training the Model</a></li>
+  <li><a href="#step-2-deploy-your-model" id="toc-step-2-deploy-your-model" class="nav-link" data-scroll-target="#step-2-deploy-your-model">Step 2: Deploy your model</a>
+  <ul class="collapse">
+  <li><a href="#create-a-huggingface-account" id="toc-create-a-huggingface-account" class="nav-link" data-scroll-target="#create-a-huggingface-account">2.1 Create a HuggingFace Account</a></li>
+  <li><a href="#creating-a-gradio-app" id="toc-creating-a-gradio-app" class="nav-link" data-scroll-target="#creating-a-gradio-app">2.2 Creating a Gradio app</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">A coriander قزبر vs معدنوس Parsley Classifier</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">fastai</div>
+    <div class="quarto-category">ml</div>
+    <div class="quarto-category">classification</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Hamza </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 8, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Coriander قزبر and parsley معدنوس are two staple ingredients of Moroccan cuisine, our moms have the superpower of easily distinguishing between them, but us mortals cannot.</p>
+<p>In lesson 2 of Deep Learning for Coders 2022 part 1, Jeremy presented a simple image classification model for grizzly, black and teddy bears. I will be using a similar model to help us on this strenuous and confusing task.</p>
+<section id="step-1-training-the-model" class="level1">
+<h1>Step 1: Training the Model</h1>
+<p>First we need to gather the data and train a model to classify our targets. We begin first by important all the relevant libraries:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fastbook</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastbook <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.vision.widgets <span class="im">import</span> <span class="op">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We then search on DuckDuckGo for images of both coriander and parsley.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plant_types <span class="op">=</span> <span class="st">'coriander'</span>,<span class="st">'parsley'</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path(<span class="st">'plants'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> path.exists():</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    path.mkdir()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> o <span class="kw">in</span> plant_types:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        dest <span class="op">=</span> (path<span class="op">/</span>o)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        dest.mkdir(exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        results <span class="op">=</span> search_images_ddg(<span class="ss">f'</span><span class="sc">{</span>o<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        download_images(dest, urls<span class="op">=</span>results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>plant_types</code> contains our two category names<br>
+<code>path</code> is the path where our images will be downloaded<br>
+Then we loop over our categories and create respective folders for each of them<br>
+We then perform a DuckDuckGo image search with the function <code>search_images_ddg</code> and we store all the urls of the results in the variable <code>results</code>, we then download all the images in the category folder.</p>
+<p>It’s standard procedure to check for images that failed to download using the following bit of code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fns <span class="op">=</span> get_image_files(path)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>failed <span class="op">=</span> verify_images(fns)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>failed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>we then use <code>unlink</code> to remove said failked images.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>failed.<span class="bu">map</span>(Path.unlink)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>One of the amazing features of fastai are <code>Datablocks</code> and <code>DataLoaders</code>.</p>
+<p>A Data block is nothing more than a pipeline for data assembly. When you initially create a <code>DataBlock</code>, you won’t need to specify any data. What you will need to specify, however, is a set of rules for how to treat your data when it does flow in. It doesn’t care about what you’ll do with it, it just cares about how you want it gathered, classified and split.</p>
+<p>In order to create a Data block you need to specify</p>
+<pre><code>- what types of data to expect for your input (aka features) and target variables (aka labels)
+- how to get the data
+- how to differentiate features from the target variables,
+- how to split the data for training (train &amp; validation set)</code></pre>
+<p>Let’s see how to do that. In our case our DataBlock looks like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plants <span class="op">=</span> DataBlock(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    blocks <span class="op">=</span> (ImageBlock, CategoryBlock),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    get_items <span class="op">=</span> get_image_files,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    splitter <span class="op">=</span> RandomSplitter(valid_pct <span class="op">=</span> <span class="fl">0.2</span>, seed <span class="op">=</span> <span class="dv">42</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    get_y <span class="op">=</span> parent_label,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    item_tfms <span class="op">=</span> Resize(<span class="dv">128</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The four main steps mentioned above are exactly the first four (required) arguments of a DataBlock:</p>
+<ul>
+<li><code>blocks</code>: is where you specify the types of data your model will work with. Usually you will specify at least two blocks: one that represents your independent (input) variable, and one that represents your dependent (target) variable. You can also specify multiple input/output variables.</li>
+<li><code>get_items</code>: a function that will actually go and pick up the data when necessary (more on this later)</li>
+<li><code>splitter</code>: how the data will be split between training and validation set. The seed is optional and only added for reproducibility.</li>
+<li><code>get_y</code>: how to extract the target (dependent) variable from the data. In our case, this will be by looking at the parent folder, fast.ai provides a built in function called parent_label.</li>
+<li><code>item_tfms</code>: is an optional argument that we can include to specify any additional processing that needs to be carried out when we flow our data through. In this case, we will resize all images to 128x128. We can specify other transforms, such as item_tfms=Resize(128, ResizeMethod.Squish)) which will resize and squish our images to fit, or item_tfms=Resize(128, ResizeMethod.Pad, pad_mode=‘zeros’) to resize and pad any leftover space with black. This method is incredibly powerful as it also supports data augmentation. This is beyond the scope of this blog post, but just know that item_tfms allows you to pre-process your data before it hits your model.</li>
+</ul>
+<p>Now that we’ve defined a <code>DataBlock</code>, and we’ve specified exactly how our data needs to be structured, categorized and processed, we can start actually feeding in the data for our model to train on. We load this data in with a Data loader. This is where <code>DataLoaders</code> come in. A <code>DataLoaders</code> is an iterator class that our <code>DataBlock</code> will call to load data according to the rules that we’ve specified in specific chunks (called batch size).</p>
+<p>A <code>DataLoader</code> in fast.ai is a superset of the PyTorch <code>DataLoader</code>, with more helpful callbacks and flexibility. Whereas the Data block knows how to structure the data, the Loader knows how to work with it in the context of training a machine learning model i.e.&nbsp;how much to feed to the model at once (batch size), how many processes to spawn to load the data, how much memory to allocate and many more.</p>
+<p>A <code>DataLoaders</code> (note the plural), is a thin class that automatically generates multiple <code>DataLoader</code> (singular) objects based on the rules specified in our <code>DataBlock</code>.</p>
+<p>Now let’s create our own:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path(<span class="st">'plants'</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dls <span class="op">=</span> plants.dataloaders(path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>our <code>dataloaders</code> are now created, let’s visualize some of our data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dls.valid.show_batch(max_n<span class="op">=</span><span class="dv">4</span>, nrows<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="dataloaders.png" class="img-fluid"></p>
+<p>Now let’s train our model by using the <code>vision_learner</code>, but first what is that?<br>
+A <code>learner</code> is a fastai component that groups together a model, some <code>Dataloaders</code> and a <code>loss_function</code> to handle training. A <code>vision_learner</code> is a <code>learner</code> that handles computer vision tasks.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>learn <span class="op">=</span> vision_learner(dls, resnet18, metrics<span class="op">=</span>error_rate)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>learn.fine_tune(<span class="dv">4</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>this <code>vision_learner</code> will use the <code>DataLoaders</code> we created, and will also use a pretrained model <code>resnet18</code> and <code>error_rate</code> (1 - accuracy) as <code>metric</code>.<br>
+Then we use <code>fine_tune</code> to fine tune our pretrained model to our coriander and parsley data for 4 <code>epochs</code>.</p>
+<p>If you’ve already done a classification task, you may be shrugging right now and saying “What is he doing? training a model without any data cleaning?”.<br>
+That’s what I said myself when I was watching Jeremy doing his classification, then he said what I consider the most interesting take away of this lesson, I don’t remember the exact words but he said something like this: &gt; You should train your model first, then clean the data later. Training the model on unclean data will show you where the model struggles and helps you to clean the data better and retrain later on a clean data to have better results.</p>
+<p>Now That we trained our model on unclean data, we need to see where he did mess up the most. We can do that by using the following code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>interp.plot_top_losses(<span class="dv">5</span>, nrows<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>fastai includes a handy GUI for data cleaning called <code>ImageClassifierCleaner</code> that allows you to choose a category and the training versus validation set and view the highest-loss images (in order), along with menus to allow images to be selected for removal or relabeling:</p>
+<p><img src="cleaner.png" class="img-fluid"></p>
+<p>The problem I had with this dataset, was that many images were of bottles containing dry coriander/parsley or images containing coriander/parsley in their grain form. You must make sure that your dataset is absolutely representative of what you want to classify before proceeding to your final training.</p>
+<p>Now that our dataset is clean, we retrain our model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> Path(<span class="st">'plants'</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dls <span class="op">=</span> plants.dataloaders(path)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>learn <span class="op">=</span> vision_learner(dls, resnet18, metrics<span class="op">=</span>error_rate)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>learn.fine_tune(<span class="dv">4</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Our model is now ready to use, let’s export it!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>learn.export(<span class="st">'plants.pkl'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>now we have our model in a Python Pickle File, it contains the architecture and weights of our model which will make it ready to be deployed.</p>
+</section>
+<section id="step-2-deploy-your-model" class="level1">
+<h1>Step 2: Deploy your model</h1>
+<p>For deploying our model we will be using HuggingFace Spaces and Gradio, you can follow this amazing <a href="https://www.tanishq.ai/blog/gradio_hf_spaces_tutorial">tutorial</a>.</p>
+<p>If you prefer a more minimalist explanation, you can stick with me.</p>
+<section id="create-a-huggingface-account" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-huggingface-account">2.1 Create a HuggingFace Account</h2>
+<ul>
+<li>Visit <a href="https://huggingface.co/">HuggingFace</a> Website and Create an account</li>
+<li>Now go to <a href="https://huggingface.co/spaces">HuggingFace Spaces</a> and Create a New Space</li>
+<li>In the SDK section select <code>Gradio</code></li>
+</ul>
+<p><img src="gradio.png" class="img-fluid"></p>
+<p>You have now a new space.</p>
+<ul>
+<li>Go to your terminal in install git lfs (to be able to upload large files) using the following command:<br>
+<code>git lfs install</code></li>
+<li>Now clone your space to your computer using the command:<br>
+<code>git clone https://huggingface.co/spaces/&lt;your_username&gt;/&lt;your_spacename&gt;</code></li>
+</ul>
+</section>
+<section id="creating-a-gradio-app" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-gradio-app">2.2 Creating a Gradio app</h2>
+<p>Now we should create a Gradio app that takes an input from the user and queries the model for its prediction and return it.<br>
+Gradio usually requires a python file named <code>app.py</code> but we will be doing things differently.<br>
+In the fastai course we used JupyterNotebooks and <code>nbdev</code> to create such file, to do so, create a new Jupyter Notebook (in the folder of your cloned repo) and fill the first cell with this code:</p>
+<p>::: {.cell 0=‘d’ 1=‘e’ 2=‘f’ 3=‘a’ 4=‘u’ 5=‘l’ 6=‘t’ 7=’_’ 8=‘e’ 9=‘x’ 10=‘p’ 11=’ ’ 12=‘a’ 13=‘p’ 14=‘p’}</p>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.vision.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gradio <span class="im">as</span> gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>the first line is an indicator for <code>nbdev</code> to export the file and name it “app”. The rest is imports we will need.</p>
+<p>Now move the exported <code>model.pkl</code> model to the folder of your repo and load it.</p>
+<p>::: {.cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>learn <span class="op">=</span> load_learner(<span class="st">'model.pkl'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>that <code>#|export</code> line indicates to <code>nbdev</code> that the code of this cell needs to be included in the final exported app.py, if you want to do some tests for example import some images and try the model on them you can do so on cells that do not have the comment on their first line.<br>
+Our model is now up and ready, let’s create a Gradio interface:</p>
+<p>::: {.cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>categories <span class="op">=</span> (<span class="st">'coriander'</span>, <span class="st">'parsley'</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify_image(img):</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    pred, idx, probs <span class="op">=</span> learn.predict(img)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">dict</span>(<span class="bu">zip</span>(categories,<span class="bu">map</span>(<span class="bu">float</span>,probs)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>Let’s break this down a bit: - <code>categories</code> contains the categories that our classifier chooses from.</p>
+<p>Gradio requires us to give him a function that he will call, this function is <code>classify_image</code>, it takes an image as an arguments. the <code>learner</code> has a method predict that takes an input and returns 3 things: - <code>pred</code>: <code>True</code> for positive class, <code>False</code> for negative class - <code>idx</code>: gives the index of the class - <code>probs</code>: gives the probability that this item is in this class for example if we have two categories probs will be a (2,1) array with probs[0] the probability of the item being in class 0, and probs[1] the probability of it being in class 1.</p>
+<p>The function returns a dictionary with <code>categories</code> as keys and <code>float(probs)</code> as values, if you are not familiar with the <code>dict(zip())</code> paradigm, check up <a href="https://www.youtube.com/watch?v=dBgxirJG3K8&amp;ab_channel=Rodrigo%F0%9F%90%8D%F0%9F%93%9D">this video</a>.</p>
+<p>Now that we have our function set, let’s go and create the actual interface:</p>
+<p>::: {.cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> gr.inputs.Image(shape<span class="op">=</span>(<span class="dv">192</span>,<span class="dv">192</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> gr.outputs.Label()</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>examples <span class="op">=</span> [<span class="st">'coriander.jpg'</span>,<span class="st">'parsley.jpg'</span>]</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>intf <span class="op">=</span> gr.Interface(fn<span class="op">=</span>classify_image, inputs <span class="op">=</span> image, outputs <span class="op">=</span> label, examples <span class="op">=</span> examples)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>intf.launch(inline<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>:::</p>
+<p>We created an <code>image</code> input object and a <code>label</code> output object. We also added two images to our main folder of actual coriander and parsley respectively named <code>coriander.jpg</code> and <code>parsley.jpg</code>.</p>
+<p>Then we proceed to creating an interface that takes as parameters: - <code>fn</code>: the function <code>classify_image</code> - <code>inputs</code>: the input image - <code>outputs</code>: the output label - <code>examples</code>: this is optional, use it if you want to add examples to help the user.</p>
+<p>Our notebook is ready to be converted into a Gradio app! We will use <code>nbdev</code> to do so:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nbdev</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>nbdev.export.nb_export(<span class="st">'app.ipynb'</span>, <span class="st">'app'</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Export successful'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Everything is good now, let’s push this to HuggingFace:<br>
+You can either do this from the terminal (reminder: make sure to install git lfs) using the following commands: <code>git add .</code><br>
+<code>git commit -m "add your custom message"</code><br>
+<code>git push</code> Or via the HuggingFace Website, Go to your space -&gt; Files and versions. And add your files manually from there.</p>
+<p>When everything is done, visit <code>https://huggingface.co/spaces/&lt;your_username&gt;/&lt;your_spacename&gt;</code> and you will have a fully operational coriander and parsley classifying app that you can share with your friends, it’s not perfect but still it’s better than wild guessing.</p>
+<p>Here is <a href="https://huggingface.co/spaces/Kiriyama0/corvspar">mine</a></p>
+<p>Note: Hugging Face Spaces that run on the default cpu-basic hardware (free tier), will go to sleep if inactive for more than a set time (currently, 72 hours). Anyone visiting your Space will restart it automatically. When it goes to sleep you can restart it by going to your spaces.</p>
+<p><img src="hf.png" class="img-fluid"></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="HaoES/blogComments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
