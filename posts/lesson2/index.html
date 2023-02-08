@@ -262,10 +262,10 @@ We then perform a DuckDuckGo image search with the function <code>search_images_
 <p>One of the amazing features of fastai are <code>Datablocks</code> and <code>DataLoaders</code>.</p>
 <p>A Data block is nothing more than a pipeline for data assembly. When you initially create a <code>DataBlock</code>, you won’t need to specify any data. What you will need to specify, however, is a set of rules for how to treat your data when it does flow in. It doesn’t care about what you’ll do with it, it just cares about how you want it gathered, classified and split.</p>
 <p>In order to create a Data block you need to specify</p>
-<pre><code>- what types of data to expect for your input (aka features) and target variables (aka labels)
-- how to get the data
-- how to differentiate features from the target variables,
-- how to split the data for training (train &amp; validation set)</code></pre>
+<pre><code>- what types of data to expect for your input (aka features) and target variables (aka labels)  
+- how to get the data  
+- how to differentiate features from the target variables,  
+- how to split the data for training (train &amp; validation set)  </code></pre>
 <p>Let’s see how to do that. In our case our DataBlock looks like this:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plants <span class="op">=</span> DataBlock(</span>
@@ -277,10 +277,14 @@ We then perform a DuckDuckGo image search with the function <code>search_images_
 </div>
 <p>The four main steps mentioned above are exactly the first four (required) arguments of a DataBlock:</p>
 <ul>
-<li><code>blocks</code>: is where you specify the types of data your model will work with. Usually you will specify at least two blocks: one that represents your independent (input) variable, and one that represents your dependent (target) variable. You can also specify multiple input/output variables.</li>
-<li><code>get_items</code>: a function that will actually go and pick up the data when necessary (more on this later)</li>
-<li><code>splitter</code>: how the data will be split between training and validation set. The seed is optional and only added for reproducibility.</li>
-<li><code>get_y</code>: how to extract the target (dependent) variable from the data. In our case, this will be by looking at the parent folder, fast.ai provides a built in function called parent_label.</li>
+<li><code>blocks</code>: is where you specify the types of data your model will work with. Usually you will specify at least two blocks: one that represents your independent (input) variable, and one that represents your dependent (target) variable. You can also specify multiple input/output variables.<br>
+</li>
+<li><code>get_items</code>: a function that will actually go and pick up the data when necessary (more on this later)<br>
+</li>
+<li><code>splitter</code>: how the data will be split between training and validation set. The seed is optional and only added for reproducibility.<br>
+</li>
+<li><code>get_y</code>: how to extract the target (dependent) variable from the data. In our case, this will be by looking at the parent folder, fast.ai provides a built in function called parent_label.<br>
+</li>
 <li><code>item_tfms</code>: is an optional argument that we can include to specify any additional processing that needs to be carried out when we flow our data through. In this case, we will resize all images to 128x128. We can specify other transforms, such as item_tfms=Resize(128, ResizeMethod.Squish)) which will resize and squish our images to fit, or item_tfms=Resize(128, ResizeMethod.Pad, pad_mode=‘zeros’) to resize and pad any leftover space with black. This method is incredibly powerful as it also supports data augmentation. This is beyond the scope of this blog post, but just know that item_tfms allows you to pre-process your data before it hits your model.</li>
 </ul>
 <p>Now that we’ve defined a <code>DataBlock</code>, and we’ve specified exactly how our data needs to be structured, categorized and processed, we can start actually feeding in the data for our model to train on. We load this data in with a Data loader. This is where <code>DataLoaders</code> come in. A <code>DataLoaders</code> is an iterator class that our <code>DataBlock</code> will call to load data according to the rules that we’ve specified in specific chunks (called batch size).</p>
@@ -305,7 +309,8 @@ A <code>learner</code> is a fastai component that groups together a model, some 
 <p>this <code>vision_learner</code> will use the <code>DataLoaders</code> we created, and will also use a pretrained model <code>resnet18</code> and <code>error_rate</code> (1 - accuracy) as <code>metric</code>.<br>
 Then we use <code>fine_tune</code> to fine tune our pretrained model to our coriander and parsley data for 4 <code>epochs</code>.</p>
 <p>If you’ve already done a classification task, you may be shrugging right now and saying “What is he doing? training a model without any data cleaning?”.<br>
-That’s what I said myself when I was watching Jeremy doing his classification, then he said what I consider the most interesting take away of this lesson, I don’t remember the exact words but he said something like this: &gt; You should train your model first, then clean the data later. Training the model on unclean data will show you where the model struggles and helps you to clean the data better and retrain later on a clean data to have better results.</p>
+That’s what I said myself when I was watching Jeremy doing his classification, then he said what I consider the most interesting take away of this lesson, I don’t remember the exact words but he said something like this:<br>
+&gt; You should train your model first, then clean the data later. Training the model on unclean data will show you where the model struggles and helps you to clean the data better and retrain later on a clean data to have better results.</p>
 <p>Now That we trained our model on unclean data, we need to see where he did mess up the most. We can do that by using the following code:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>interp.plot_top_losses(<span class="dv">5</span>, nrows<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -376,8 +381,12 @@ Our model is now up and ready, let’s create a Gradio interface:</p>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    pred, idx, probs <span class="op">=</span> learn.predict(img)</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">dict</span>(<span class="bu">zip</span>(categories,<span class="bu">map</span>(<span class="bu">float</span>,probs)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s break this down a bit: - <code>categories</code> contains the categories that our classifier chooses from.</p>
-<p>Gradio requires us to give him a function that he will call, this function is <code>classify_image</code>, it takes an image as an arguments. the <code>learner</code> has a method predict that takes an input and returns 3 things: - <code>pred</code>: <code>True</code> for positive class, <code>False</code> for negative class - <code>idx</code>: gives the index of the class - <code>probs</code>: gives the probability that this item is in this class for example if we have two categories probs will be a (2,1) array with probs[0] the probability of the item being in class 0, and probs[1] the probability of it being in class 1.</p>
+<p>Let’s break this down a bit:<br>
+- <code>categories</code> contains the categories that our classifier chooses from.</p>
+<p>Gradio requires us to give him a function that he will call, this function is <code>classify_image</code>, it takes an image as an arguments. the <code>learner</code> has a method predict that takes an input and returns 3 things:<br>
+- <code>pred</code>: <code>True</code> for positive class, <code>False</code> for negative class<br>
+- <code>idx</code>: gives the index of the class<br>
+- <code>probs</code>: gives the probability that this item is in this class for example if we have two categories probs will be a (2,1) array with probs[0] the probability of the item being in class 0, and probs[1] the probability of it being in class 1.</p>
 <p>The function returns a dictionary with <code>categories</code> as keys and <code>float(probs)</code> as values, if you are not familiar with the <code>dict(zip())</code> paradigm, check up <a href="https://www.youtube.com/watch?v=dBgxirJG3K8&amp;ab_channel=Rodrigo%F0%9F%90%8D%F0%9F%93%9D">this video</a>.</p>
 <p>Now that we have our function set, let’s go and create the actual interface:</p>
 <div class="cell">
@@ -390,7 +399,11 @@ Our model is now up and ready, let’s create a Gradio interface:</p>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>intf.launch(inline<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We created an <code>image</code> input object and a <code>label</code> output object. We also added two images to our main folder of actual coriander and parsley respectively named <code>coriander.jpg</code> and <code>parsley.jpg</code>.</p>
-<p>Then we proceed to creating an interface that takes as parameters: - <code>fn</code>: the function <code>classify_image</code> - <code>inputs</code>: the input image - <code>outputs</code>: the output label - <code>examples</code>: this is optional, use it if you want to add examples to help the user.</p>
+<p>Then we proceed to creating an interface that takes as parameters:<br>
+- <code>fn</code>: the function <code>classify_image</code><br>
+- <code>inputs</code>: the input image<br>
+- <code>outputs</code>: the output label<br>
+- <code>examples</code>: this is optional, use it if you want to add examples to help the user.</p>
 <p>Our notebook is ready to be converted into a Gradio app! We will use <code>nbdev</code> to do so add this cell to the bottom of your notebook and run it:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nbdev</span>
@@ -398,13 +411,15 @@ Our model is now up and ready, let’s create a Gradio interface:</p>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Export successful'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We are almost done, all we need to do now is to create a requirements.txt file and fill it with the following:</p>
-<pre><code>fastai
-torch
-gradio</code></pre>
+<pre><code>fastai  
+torch  
+gradio  </code></pre>
 <p>Everything is good now, let’s push this to HuggingFace:<br>
-You can either do this from the terminal (reminder: make sure to install git lfs) using the following commands: <code>git add .</code><br>
+You can either do this from the terminal (reminder: make sure to install git lfs) using the following commands:<br>
+<code>git add .</code><br>
 <code>git commit -m "add your custom message"</code><br>
-<code>git push</code> Or via the HuggingFace Website, Go to your space -&gt; Files and versions. And add your files manually from there.</p>
+<code>git push</code><br>
+Or via the HuggingFace Website, Go to your space -&gt; Files and versions. And add your files manually from there.</p>
 <p>When everything is done, visit <code>https://huggingface.co/spaces/&lt;your_username&gt;/&lt;your_spacename&gt;</code> and you will have a fully operational coriander and parsley classifying app that you can share with your friends, it’s not perfect but still it’s better than wild guessing.</p>
 <p>Here is <a href="https://huggingface.co/spaces/Kiriyama0/corvspar">mine</a></p>
 <p>Note: Hugging Face Spaces that run on the default cpu-basic hardware (free tier), will go to sleep if inactive for more than a set time (currently, 72 hours). Anyone visiting your Space will restart it automatically. When it goes to sleep you can restart it by going to your spaces.</p>
