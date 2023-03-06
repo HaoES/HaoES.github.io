@@ -3,6 +3,7 @@ project:
 
 website:
   title: "Hamza's Blog"
+  google-analytics: "G-RL9R6GRFLC"
   navbar:
     right:
       - text: About
@@ -13,6 +14,7 @@ website:
         href: https://twitter.com/0Kiriyama
       - icon: linkedin
         href: https://www.linkedin.com/in/hamza-es/
+  
 format:
   html:
     theme: theme.scss
