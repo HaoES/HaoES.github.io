@@ -2,22 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://HaoES.github.io/about.html</loc>
-    <lastmod>2023-04-03T18:09:07.613Z</lastmod>
+    <lastmod>2023-07-08T17:14:05.236Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/Why-this-blog/index.html</loc>
-    <lastmod>2023-04-03T18:09:08.003Z</lastmod>
+    <lastmod>2023-07-08T17:14:05.756Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/coriander-parsley-classifier/index.html</loc>
-    <lastmod>2023-04-03T18:09:08.473Z</lastmod>
+    <lastmod>2023-07-08T17:14:06.366Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/understanding-gradient-descent/index.html</loc>
-    <lastmod>2023-04-03T18:09:08.773Z</lastmod>
+    <lastmod>2023-07-08T17:14:06.696Z</lastmod>
+  </url>
+  <url>
+    <loc>https://HaoES.github.io/posts/fastai-deep-learning-for-coders-part-1/index.html</loc>
+    <lastmod>2023-07-08T17:14:07.056Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/index.html</loc>
-    <lastmod>2023-04-03T18:09:09.113Z</lastmod>
+    <lastmod>2023-07-08T17:14:07.466Z</lastmod>
   </url>
 </urlset>
