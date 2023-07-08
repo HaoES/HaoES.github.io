@@ -10,6 +10,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/fastai-deep-learning-for-coders-part-1/index.html",
       "/posts/understanding-gradient-descent/index.html",
       "/posts/coriander-parsley-classifier/index.html",
       "/posts/Why-this-blog/index.html"
