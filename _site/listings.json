@@ -10,6 +10,8 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/breaking_down_backpropagation_code/index.html",
+      "/posts/understanding-stable-diffusion/index.html",
       "/posts/fastai-deep-learning-for-coders-part-1/index.html",
       "/posts/understanding-gradient-descent/index.html",
       "/posts/coriander-parsley-classifier/index.html",

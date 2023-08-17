@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Hamza ES-SAMAALI">
+<meta name="dcterms.date" content="2023-08-17">
+
+<title>Hamza’s Blog - Breaking down backpropagation implementation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-RL9R6GRFLC"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-RL9R6GRFLC', { 'anonymize_ip': true});
+</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Hamza’s Blog</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/HaoES"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/0Kiriyama"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/hamza-es/"><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Breaking down backpropagation implementation</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">fastai</div>
+    <div class="quarto-category">ml</div>
+    <div class="quarto-category">backpropagation</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Hamza ES-SAMAALI </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 17, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p>I have always had this bad habit while learning where I would just take the informations in passively and not try to apply any of it, even while studying math I only read the theorems and never do exercises.</p>
+<p>This is a very bad habit that I am trying to get rid of lately while doing the <a href="https://course.fast.ai/">fastai course</a>. I try my best not to let anything slide without explicitly understanding it.</p>
+<p>Or that’s what I thought. Because recently while browsing <a href="https://forums.fast.ai">the fastai forum</a> I stumbled upon a question the code of backpropagation. A concept that I thought I understood very well. The question was and I quote:</p>
+<pre class="{python}"><code>class Mse():
+    def __call__(self, inp, targ):
+        self.inp,self.targ = inp,targ
+        self.out = mse(inp, targ)
+        return self.out 
+
+    def backward(self):
+        self.inp.g = 2. * (self.inp.squeeze() - self.targ).unsqueeze(-1) / self.targ.shape[0]
+
+
+class Lin():
+
+    def __init__(self, w, b): self.w,self.b = w,b
+    def __call__(self, inp):
+        self.inp = inp
+        self.out = lin(inp, self.w, self.b)
+        return self.out
+    def backward(self):
+        self.inp.g = self.out.g @ self.w.t()
+        self.w.g = self.inp.t() @ self.out.g
+        self.b.g = self.out.g.sum(0)</code></pre>
+<p>Shouldn’t it be <code>self.out.g</code> instead of <code>self.inp.g</code> in the backward definition of <code>Mse</code> class. I don’t know how <code>Lin backward()</code> automatically gets <code>self.out.g</code> value. Can some one explain?</p>
+<p><strong>End of Quote</strong></p>
+<p>When I read this question I realized that I didn’t have the answer so I revisited the video for the <a href="https://course.fast.ai/Lessons/lesson13.html">lesson 13</a> and came up with a “detailed” response. Here it is:</p>
+<p>To understand this let us first set all the code we need, then we will take it execute it step by step. Our building blocks are: - the lin function: <code>def lin(x, w, b): return x@w + b</code> - the mse function: <code>def mse(output,target): return ((output.squeeze()-target)**2).mean()</code> and the classes: <code>Mse()</code>, <code>ReLU()</code>, <code>Lin()</code> and <code>Model()</code> Now to create our model and compute backpropagation we run the following code:</p>
+<pre><code>model = Model(w1, b1, w2, b2)</code></pre>
+<p>what happens now?: We are calling the <code>Model</code> constructor so if we look inside the object <code>model</code> we will find:</p>
+<pre><code>model.layers = [Lin(w1,b1),Relu(),Lin(w2,b2)]
+model.loss = Mse() </code></pre>
+<p>Let’s name our layers L1, R, and L2 to make the explanation easier to follow. so <code>L1.w = w1</code>, <code>L1.b = b1</code>, <code>L2.w = w2</code> and <code>L2.b = b2</code>.</p>
+<p>Now let’s execute the following line:</p>
+<pre><code>loss = model(x_train, y_train)</code></pre>
+<p>here we are using the <code>model</code> object as if it was a function, this will trigger the <code>__call__</code> method, here is the code for it:</p>
+<pre><code> def __call__(self, x, targ):
+        for l in self.layers: x = l(x)
+        return self.loss(x, targ)</code></pre>
+<p>let’s execute it: in our case <code>x = x_train</code> and <code>targ = y_train</code> now let’s go through that for loop: <code>for l in self.layers: x = l(x)</code> the contents of <code>model.layers</code> is <code>[L1,R,L2]</code> so the first instruction will be: <code>x = L1(x)</code> similarly here again we are using <code>L1</code> as function so let’s go see what’s in its <code>__call__</code> method and run it:</p>
+<pre><code># Lin Call method
+def __call__(self, inp):
+        self.inp = inp
+        self.out = lin(inp, self.w, self.b)
+        return self.out</code></pre>
+<p>so we are assigning <code>inp</code> to <code>self.inp</code>, in this case <code>L1.inp = x_train</code> and <code>L1.out = lin(inp, w1,b1) = x_train @ w1 + b1</code>.<br>
+The call method returns <code>self.out</code> so the new value of <code>x</code> will be <code>x = L1.out</code>.</p>
+<p>The first iteration of the loop is done, next element is the layer R, so <code>x = R(x)</code></p>
+<pre><code># ReLU call method
+def __call__(self, inp):
+        self.inp = inp
+        self.out = inp.clamp_min(0.)
+        return self.out</code></pre>
+<p>so now we have <code>R.inp = L1.out</code> <code>R.out = relu(L1.inp) # basically equal to L1.inp when it's &gt; 0, 0 otherwise</code>.<br>
+Now the new value of <code>x</code> is <code>x = relu(L1.inp)</code> The second iteration is done, next element is the layer L2, so <code>x = L2(x)</code> now we have <code>L2.inp = relu(L1.inp)</code> and <code>L2.out = relu(L1.inp) @ w2 + b2</code>.<br>
+The new value of <code>x</code> is <code>x = L2.out = relu(L1.inp) @ w2 + b2</code>.</p>
+<p>The for loop has ended. Let’s go to the next line of code <code>return self.loss(x, targ)</code> We saw earlier that <code>model.loss = Mse()</code> so we are using the <code>__call__</code> method of the <code>Mse</code> class:</p>
+<pre><code># call method of the Mse class
+def __call__(self, inp, targ):
+        self.inp, self.targ = inp, targ
+        self.out = mse(inp, targ)
+        return self.out</code></pre>
+<p>now we have <code>mse.inp = x, mse.targ = targ</code> and <code>mse.out = mse(x, targ) = ((x.squeeze()-targ)**2).mean()</code>.<br>
+The method return mse.out so <code>loss = mse.out</code>.</p>
+<p>Finally we get to the part which confused us both</p>
+<pre><code>model.backward()</code></pre>
+<p>it calls the <code>backward</code> method of the <code>Model</code> class:</p>
+<pre><code># backward method of the Model class
+def backward(self):
+        self.loss.backward()
+        for l in reversed(self.layers): l.backward()</code></pre>
+<p>In the first line we have <code>model.loss.backward()</code> which is none other than the <code>backward</code> method of the <code>Mse</code> class. because remember that <code>loss</code> is an instance of the <code>Mse</code> class.</p>
+<pre><code># backward method of Mse
+def backward(self):
+        self.inp.g = 2 * (self.inp.squeeze() - self.targ).unsqueeze(-1) / self.inp.shape[0]</code></pre>
+<p>So here we compute <code>mse.inp.g</code> and we saw earlier that <code>mse.ing = x</code> so we are in fact computing <code>x.g</code> and it’s equal to <code>x.g = 2 * (x.squeeze() - targ).unsqueeze(-1) / x.shape[0]</code></p>
+<p><code>x</code> as you know is the output of our MLP (multi level perceptron), and the gradient of the loss with respect to the output is stored in the output tensor i.e <code>x.g</code>. So that’s why it should be indeed <code>inp.g</code> and not <code>out.g</code> in the <code>backward</code> method of the <code>Mse</code> class.</p>
+<p>Now in order to find out how <code>backward</code> of <code>Lin</code> get the <code>out.g</code> value let’s continue executing our code. We have have executed the first line now let’s run the for loop:</p>
+<pre><code> for l in reversed(self.layers): l.backward()</code></pre>
+<p>the first value of <code>l</code> is <code>L2</code> (because we are going through the reversed list of layers) so let’s run <code>L2.backward()</code></p>
+<pre><code># Lin backward
+def backward(self):
+        self.inp.g = self.out.g @ self.w.t()
+        self.w.g = self.inp.t() @ self.out.g
+        self.b.g = self.out.g.sum(0)</code></pre>
+<p>We already know that:</p>
+<pre><code>L2.inp = relu(L1.inp)
+L2.out = relu(L1.inp) @ w2 + b2 = x</code></pre>
+<p>so when we call <code>L2.backward()</code> this method will perform the following updates:</p>
+<pre><code>L2.inp.g =  L2.out.g @ L2.w.t() # which is equivalent to L2.inp.g = x.g @ w2.t() 
+w2.g = L2.inp.t() @ L2.out.g
+b2.g = L2.out.g.sum(0)</code></pre>
+<p>As you can see <code>Lin</code> knows automatically what <code>out.g</code> is, because when we ran <code>model.loss.backward()</code> we calculated it. So now we have computed <code>L2.inp.g</code> (which is <code>R.out.g</code>) ,<code>w2.g</code> and <code>b2.g</code>.<br>
+The first iteration of the loop has ended, next <code>l=R</code> and we will run <code>R.backward</code>:</p>
+<pre><code>def backward(self): self.inp.g = (self.inp&gt;0).float() * self.out.g</code></pre>
+<p>We know that <code>R.inp = L1.out</code> and <code>R.out = relu(L1.inp)</code> The following updates will occur:</p>
+<pre><code>R.inp.g = (R.inp &gt; 0).float() * R.out.g </code></pre>
+<p>Now we have computed <code>R.inp.g</code> (which is <code>L1.out.g</code>).<br>
+This iteration is done, next is <code>l = L1</code> so we will call <code>L1.backward()</code>.<br>
+We know that <code>L1.inp = x_train</code> and that <code>L1.out  = R.inp</code> So calling <code>backward</code> of <code>L1</code> will give us the following updates:</p>
+<pre><code>L1.inp.g =  L1.out.g @ w1.t() # which is equivalent to L1.inp.g = R.inp.g @ w1.t() 
+w1.g = L1.inp.t() @ L1.out.g
+b1.g = L1.out.g.sum(0)</code></pre>
+<p>That’s it.</p>
+<p>The main takeaway is that backpropagation strats at the end and compute the gradient of the loss and stores it in the output tensor of the neural network (which is the input tensor of the loss function, and that’s what’s confusing).</p>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="HaoES/blogComments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
