@@ -2,30 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://HaoES.github.io/about.html</loc>
-    <lastmod>2023-07-24T17:09:16.828Z</lastmod>
+    <lastmod>2023-08-17T17:33:44.610Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/Why-this-blog/index.html</loc>
-    <lastmod>2023-07-24T17:09:17.208Z</lastmod>
+    <lastmod>2023-08-17T17:33:45.060Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/understanding-stable-diffusion/index.html</loc>
-    <lastmod>2023-07-24T17:09:17.818Z</lastmod>
+    <lastmod>2023-08-17T17:33:45.630Z</lastmod>
+  </url>
+  <url>
+    <loc>https://HaoES.github.io/posts/breaking_down_backpropagation_code/index.html</loc>
+    <lastmod>2023-08-17T17:33:46.210Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/coriander-parsley-classifier/index.html</loc>
-    <lastmod>2023-07-24T17:09:18.318Z</lastmod>
+    <lastmod>2023-08-17T17:33:46.690Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/understanding-gradient-descent/index.html</loc>
-    <lastmod>2023-07-24T17:09:18.598Z</lastmod>
+    <lastmod>2023-08-17T17:33:46.970Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/fastai-deep-learning-for-coders-part-1/index.html</loc>
-    <lastmod>2023-07-24T17:09:18.908Z</lastmod>
+    <lastmod>2023-08-17T17:33:47.290Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/index.html</loc>
-    <lastmod>2023-07-24T17:09:19.278Z</lastmod>
+    <lastmod>2023-08-17T17:33:47.690Z</lastmod>
   </url>
 </urlset>
