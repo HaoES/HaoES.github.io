@@ -2,34 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://HaoES.github.io/about.html</loc>
-    <lastmod>2023-08-17T18:07:19.640Z</lastmod>
+    <lastmod>2023-11-06T19:38:49.436Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/Why-this-blog/index.html</loc>
-    <lastmod>2023-08-17T18:07:20.020Z</lastmod>
+    <lastmod>2023-11-06T19:38:50.006Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/understanding-stable-diffusion/index.html</loc>
-    <lastmod>2023-08-17T18:07:20.590Z</lastmod>
+    <lastmod>2023-11-06T19:38:50.676Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/breaking_down_backpropagation_code/index.html</loc>
-    <lastmod>2023-08-17T18:07:21.320Z</lastmod>
+    <lastmod>2023-11-06T19:38:51.686Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/coriander-parsley-classifier/index.html</loc>
-    <lastmod>2023-08-17T18:07:22.110Z</lastmod>
+    <lastmod>2023-11-06T19:38:52.686Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/understanding-gradient-descent/index.html</loc>
-    <lastmod>2023-08-17T18:07:22.380Z</lastmod>
+    <lastmod>2023-11-06T19:38:53.056Z</lastmod>
+  </url>
+  <url>
+    <loc>https://HaoES.github.io/posts/LLM-Discord-Bot/index.html</loc>
+    <lastmod>2023-11-06T19:38:53.976Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/posts/fastai-deep-learning-for-coders-part-1/index.html</loc>
-    <lastmod>2023-08-17T18:07:22.700Z</lastmod>
+    <lastmod>2023-11-06T19:38:54.396Z</lastmod>
   </url>
   <url>
     <loc>https://HaoES.github.io/index.html</loc>
-    <lastmod>2023-08-17T18:07:23.060Z</lastmod>
+    <lastmod>2023-11-06T19:38:54.966Z</lastmod>
   </url>
 </urlset>

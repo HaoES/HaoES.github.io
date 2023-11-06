@@ -10,6 +10,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/LLM-Discord-Bot/index.html",
       "/posts/breaking_down_backpropagation_code/index.html",
       "/posts/understanding-stable-diffusion/index.html",
       "/posts/fastai-deep-learning-for-coders-part-1/index.html",
