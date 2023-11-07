@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Hamza">
-<meta name="dcterms.date" content="2023-11-06">
+<meta name="dcterms.date" content="2023-11-07">
 
 <title>Hamza’s Blog - Create a LLM-powered Discord Bot</title>
 <style>
@@ -195,6 +195,13 @@ gtag('config', 'G-RL9R6GRFLC', { 'anonymize_ip': true});
   <li><a href="#using-the-model" id="toc-using-the-model" class="nav-link" data-scroll-target="#using-the-model">2. Using the Model:</a>
   <ul class="collapse">
   <li><a href="#chat.py" id="toc-chat.py" class="nav-link" data-scroll-target="#chat.py">2.1 <code>chat.py</code></a></li>
+  <li><a href="#having-a-conversation" id="toc-having-a-conversation" class="nav-link" data-scroll-target="#having-a-conversation">2.2 Having a conversation:</a></li>
+  <li><a href="#handling-context" id="toc-handling-context" class="nav-link" data-scroll-target="#handling-context">2.3 Handling context:</a></li>
+  </ul></li>
+  <li><a href="#putting-everything-together" id="toc-putting-everything-together" class="nav-link" data-scroll-target="#putting-everything-together">3. Putting everything together:</a>
+  <ul class="collapse">
+  <li><a href="#creating-a-discord-app" id="toc-creating-a-discord-app" class="nav-link" data-scroll-target="#creating-a-discord-app">3.1 Creating a Discord App:</a></li>
+  <li><a href="#llm-discord-bot" id="toc-llm-discord-bot" class="nav-link" data-scroll-target="#llm-discord-bot">3.2 LLM Discord Bot:</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -226,7 +233,7 @@ gtag('config', 'G-RL9R6GRFLC', { 'anonymize_ip': true});
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 6, 2023</p>
+      <p class="date">November 7, 2023</p>
     </div>
   </div>
   
@@ -236,7 +243,7 @@ gtag('config', 'G-RL9R6GRFLC', { 'anonymize_ip': true});
 
 </header>
 
-<p>In this blog post we are going to build an LLM-powered Discord Bot using <code>llama.cpp</code>, here are the steps we are going to follow: 1. Download a LLM from huggingface 2. Setup a REST API to use this model 3. Create a Discord Bot Application 4. Use the REST API to operate the bot</p>
+<p>In this beginner friendly blog post we are going to build an LLM-powered Discord Bot using <code>llama.cpp</code>, here are the steps we are going to follow: 1. Download a LLM from huggingface 2. Setup a REST API to use this model 3. Create a Discord Bot Application 4. Use the REST API to operate the bot</p>
 <p>This is a beginner friendly tutorial and assumes only basic knowledge of Python and Linux. I will be working in Ubuntu 20.04 installed on <a href="https://learn.microsoft.com/en-us/windows/wsl/install">WSL2</a> but any other Linux distribution should work too.</p>
 <section id="prerequisites" class="level1">
 <h1>1. Prerequisites:</h1>
@@ -581,6 +588,231 @@ I gave it the prompt <code>Give me 3 ancient African cities</code> and the outpu
 2. Axum, Ethiopia - Axum was a major center of trade and commerce in ancient Africa, located in what is now modern-day Ethiopia. Founded around 100 CE, it was known for its advanced agriculture, architecture, and engineering. The city was also an important hub for the spread of Christianity throughout East Africa.
 3. Timbuktu, Mali - Located in what is now modern-day Mali, Timbuktu was a major center of trade and learning in West Africa during the medieval period. Founded around 1100 CE, it was known for its universities and libraries, which were renowned throughout the Islamic world. The city was also an important center for the production of books and manuscripts.
 These three cities were all major centers of trade, culture, and civilization in their respective regions during ancient times, and they played important roles in shaping the history of Africa and the wider world.</code></pre>
+</section>
+<section id="having-a-conversation" class="level2">
+<h2 class="anchored" data-anchor-id="having-a-conversation">2.2 Having a conversation:</h2>
+<p>When you run <code>chat.py</code> you will remark that the conversation ends after the first response, this is not ideal for a chatbot. Let’s modify <code>chat.py</code> to have longer conversations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a><span class="im">import</span> json</span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="im">import</span> aiohttp</span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="im">import</span> asyncio</span>
+<span id="cb36-4"><a href="#cb36-4"></a></span>
+<span id="cb36-5"><a href="#cb36-5"></a>API_URL <span class="op">=</span> <span class="st">'http://localhost:8000/v1/chat/completions'</span></span>
+<span id="cb36-6"><a href="#cb36-6"></a>headers <span class="op">=</span> {<span class="st">"Content-Type"</span>:<span class="st">"application/json"</span>}</span>
+<span id="cb36-7"><a href="#cb36-7"></a></span>
+<span id="cb36-8"><a href="#cb36-8"></a><span class="cf">async</span> <span class="kw">def</span> main():</span>
+<span id="cb36-9"><a href="#cb36-9"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb36-10"><a href="#cb36-10"></a>        prompt <span class="op">=</span> <span class="bu">input</span>(<span class="st">"User: "</span>)</span>
+<span id="cb36-11"><a href="#cb36-11"></a>        payload <span class="op">=</span> {</span>
+<span id="cb36-12"><a href="#cb36-12"></a>        <span class="st">"max_tokens"</span>:<span class="dv">512</span>,</span>
+<span id="cb36-13"><a href="#cb36-13"></a>        <span class="st">"messages"</span>: [</span>
+<span id="cb36-14"><a href="#cb36-14"></a>            {</span>
+<span id="cb36-15"><a href="#cb36-15"></a>                <span class="st">"content"</span>: <span class="ss">f"</span><span class="sc">{</span>prompt<span class="sc">}</span><span class="ss"> ### response: "</span>,</span>
+<span id="cb36-16"><a href="#cb36-16"></a>                <span class="st">"role"</span>: <span class="st">"user"</span></span>
+<span id="cb36-17"><a href="#cb36-17"></a>            }</span>
+<span id="cb36-18"><a href="#cb36-18"></a>                    ]</span>
+<span id="cb36-19"><a href="#cb36-19"></a>        }</span>
+<span id="cb36-20"><a href="#cb36-20"></a>        <span class="cf">async</span> <span class="cf">with</span> aiohttp.ClientSession() <span class="im">as</span> session:</span>
+<span id="cb36-21"><a href="#cb36-21"></a>            <span class="cf">async</span> <span class="cf">with</span> session.post(API_URL, data <span class="op">=</span> json.dumps(payload), headers <span class="op">=</span> headers) <span class="im">as</span> resp:</span>
+<span id="cb36-22"><a href="#cb36-22"></a>                reply <span class="op">=</span> <span class="cf">await</span> resp.json()</span>
+<span id="cb36-23"><a href="#cb36-23"></a>                reply_content <span class="op">=</span> reply[<span class="st">"choices"</span>][<span class="dv">0</span>][<span class="st">"message"</span>][<span class="st">"content"</span>]</span>
+<span id="cb36-24"><a href="#cb36-24"></a>                <span class="bu">print</span>(<span class="ss">f"Bot: </span><span class="sc">{</span>reply_content<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb36-25"><a href="#cb36-25"></a></span>
+<span id="cb36-26"><a href="#cb36-26"></a>asyncio.run(main())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We wrapped our code in a <code>while</code> statement so that we can maintain a conversation for as long as we desire, we also modified the <code>print</code> statement of the reply to show that it’s the Bot talking.<br>
+Now run <code>chat.py</code> again and you can chat as long as you want. You can use <code>CTRL + C</code> to terminate the program. Here is an example of chat session I had with the bot:</p>
+<pre><code>User: What is the largest city in Africa?
+Bot:  The largest city in Africa is Lagos, Nigeria. With a population of over 21 million people, Lagos is not only the largest city in Africa but also one of the fastest-growing cities in the world. It is located in the southwestern part of Nigeria and is known for its vibrant culture, diverse economy, and rich history.
+User: What is the second largest one?
+Bot:  The second largest planet in our solar system is Jupiter.</code></pre>
+<p>As you can see we can now chat with our Bot but unfortunately he can’t keep track of the context of the conversation. Let’s fix that.</p>
+</section>
+<section id="handling-context" class="level2">
+<h2 class="anchored" data-anchor-id="handling-context">2.3 Handling context:</h2>
+<p>Our model is not following the context of the conversation, this is because the OpenAPI implementation (which we are using here) requires the whole conversation to be passed as a prompt in each request. You can read more about this <a href="https://platform.openai.com/docs/api-reference/chat">here</a>. Now let’s modify our <code>chat.py</code> script:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="im">import</span> json</span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="im">import</span> aiohttp</span>
+<span id="cb38-3"><a href="#cb38-3"></a><span class="im">import</span> asyncio</span>
+<span id="cb38-4"><a href="#cb38-4"></a></span>
+<span id="cb38-5"><a href="#cb38-5"></a>API_URL <span class="op">=</span> <span class="st">'http://localhost:8000/v1/chat/completions'</span></span>
+<span id="cb38-6"><a href="#cb38-6"></a>headers <span class="op">=</span> {<span class="st">"Content-Type"</span>:<span class="st">"application/json"</span>}</span>
+<span id="cb38-7"><a href="#cb38-7"></a></span>
+<span id="cb38-8"><a href="#cb38-8"></a>payload <span class="op">=</span> {</span>
+<span id="cb38-9"><a href="#cb38-9"></a><span class="st">"max_tokens"</span>:<span class="dv">512</span>,</span>
+<span id="cb38-10"><a href="#cb38-10"></a><span class="st">"messages"</span>: []</span>
+<span id="cb38-11"><a href="#cb38-11"></a>}</span>
+<span id="cb38-12"><a href="#cb38-12"></a><span class="cf">async</span> <span class="kw">def</span> main():</span>
+<span id="cb38-13"><a href="#cb38-13"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb38-14"><a href="#cb38-14"></a>        prompt <span class="op">=</span> <span class="bu">input</span>(<span class="st">"User: "</span>)</span>
+<span id="cb38-15"><a href="#cb38-15"></a>        msg <span class="op">=</span> {</span>
+<span id="cb38-16"><a href="#cb38-16"></a>            <span class="st">"content"</span>: <span class="ss">f"</span><span class="sc">{</span>prompt<span class="sc">}</span><span class="ss"> ### response: "</span>,</span>
+<span id="cb38-17"><a href="#cb38-17"></a>            <span class="st">"role"</span>: <span class="st">"user"</span></span>
+<span id="cb38-18"><a href="#cb38-18"></a>        }</span>
+<span id="cb38-19"><a href="#cb38-19"></a>        payload[<span class="st">"messages"</span>].append(msg)</span>
+<span id="cb38-20"><a href="#cb38-20"></a>        <span class="cf">async</span> <span class="cf">with</span> aiohttp.ClientSession() <span class="im">as</span> session:</span>
+<span id="cb38-21"><a href="#cb38-21"></a>            <span class="cf">async</span> <span class="cf">with</span> session.post(API_URL, data <span class="op">=</span> json.dumps(payload), headers <span class="op">=</span> headers) <span class="im">as</span> resp:</span>
+<span id="cb38-22"><a href="#cb38-22"></a>                reply <span class="op">=</span> <span class="cf">await</span> resp.json()</span>
+<span id="cb38-23"><a href="#cb38-23"></a>                reply_content <span class="op">=</span> reply[<span class="st">"choices"</span>][<span class="dv">0</span>][<span class="st">"message"</span>][<span class="st">"content"</span>]</span>
+<span id="cb38-24"><a href="#cb38-24"></a>                <span class="bu">print</span>(<span class="ss">f"Bot: </span><span class="sc">{</span>reply_content<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb38-25"><a href="#cb38-25"></a>        msg_idx <span class="op">=</span> payload[<span class="st">"messages"</span>].index(message)</span>
+<span id="cb38-26"><a href="#cb38-26"></a>        payload[<span class="st">"messages"</span>][msg_idx][<span class="st">"content"</span>] <span class="op">+=</span> reply_content</span>
+<span id="cb38-27"><a href="#cb38-27"></a></span>
+<span id="cb38-28"><a href="#cb38-28"></a></span>
+<span id="cb38-29"><a href="#cb38-29"></a>asyncio.run(main())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>First we took out payload out of the <code>while</code> loop (line 8 to 11), it has now an empty list in the <code>messages</code> field that we are going to fill with our conversation as it progresses.<br>
+We then created a <code>msg</code> variable (line 15) which is going to contain the prompt the user just typed. This <code>msg</code> will be then appended to the <code>payload</code>’s <code>messages</code> field (line 19). The rest of the code is similar and will proceed to give a response i.e <code>reply_content</code>. Now we need to take this response and append its corresponding prompt in the <code>payload</code>’s <code>messages</code> field. We can do that by first getting the index of our actual message (line 25), then we will add that response to the prompt (line 26).</p>
+<p>Now save and run the script again. We can now see that our model can keep up with us:</p>
+<pre><code>User: What is the largest city in Africa?
+Bot:  The largest city in Africa is Lagos, Nigeria. It has a population of over 20 million people, according to estimates in 2020.
+User: What is the second largest one?
+Bot:  The second largest city in Africa is Cairo, Egypt. It has a population of approximately 20 million people, according to estimates in 2020.</code></pre>
+<p>Now we are good to go. Let’s put everything together and create a Discord Bot.</p>
+</section>
+</section>
+<section id="putting-everything-together" class="level1">
+<h1>3. Putting everything together:</h1>
+<section id="creating-a-discord-app" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-discord-app">3.1 Creating a Discord App:</h2>
+<ul>
+<li>Go to this link <a href="https://discord.com/developers/applications">https://discord.com/developers/applications</a></li>
+<li>Log in or create a new account if you don’t have any.</li>
+<li>Click on New Application (Top Right)</li>
+<li>Provide a Name to your app.</li>
+<li>Accept the terms</li>
+<li>Click Create</li>
+</ul>
+<p>Now in the <code>General Information</code> give a name to your bot and a description if you desire, you can also upload a profile picture for it.</p>
+<ul>
+<li>Click Save Changes</li>
+</ul>
+<p>Now on the left go to <code>Bot</code> section</p>
+<ul>
+<li>Click on <code>Reset Token</code> button (confirm the message)</li>
+<li>Click <code>Copy</code> to copy it</li>
+</ul>
+<p>Now go back to your project directory and create a new file called <code>.env</code> and paste your token in it with <code>TOKEN=</code> in the beginning.<br>
+You <code>.env</code> file should look like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>TOKEN<span class="op">=&lt;</span>HERE IS WHERE YOU WILL PAST YOUR TOKEN<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Save and close this file.<br>
+Now back on the Bot configuration page you need to changes two things: - Toggle off the Public Bot button. - Toggle on the <code>MESSAGE CONTENT INTENT</code> button. As shown here <img src="1.png" class="img-fluid" alt="Screenshot"></p>
+<p>Now go to the <code>OAuth2</code> tab, we need to generate a URL that will help us invite our bot to our server. - Go to <code>URL Generator</code> and tick the <code>bot</code> box. As shown in the following screenshot <img src="2.png" class="img-fluid" alt="screenshot bot"> - Now tick the following permissions: &gt; - Send Messages &gt; - Create Public Threads &gt; - Create Private Threads &gt; - Send Messages in Threads &gt; - Send TTS Messages &gt; - Read Message History &gt; - Use External Emojis &gt; - Use External Stickers &gt; - Add Reactions</p>
+<p>As shown in the following screenshot <img src="3.png" class="img-fluid" alt="screenshot permissions"></p>
+<p>Now go to the bottom and copy the generated URL and open it in a new browser tab</p>
+<p>If this is your first time using Discrod, you must create a server to add your Bot to, you can do that by following this <a href="https://www.howtogeek.com/364075/how-to-create-set-up-and-manage-your-discord-server/">tutorial</a>.<br>
+Once you have a server in your account<br>
+- Open the generated URL copied previously in a new tab.<br>
+- Select your server.<br>
+<img src="4.png" class="img-fluid" alt="Screen server"><br>
+- Click Continue - Authorize the permissions again - Prove your Humanity! (easier said than done :( )</p>
+<p>Now you are in the server with your bot!<br>
+<img src="5.png" class="img-fluid" alt="Screenshot server with bot"></p>
+<p>Our Discord Bot is created, now all we have left to do is to ‘connect’ it with our model.</p>
+</section>
+<section id="llm-discord-bot" class="level2">
+<h2 class="anchored" data-anchor-id="llm-discord-bot">3.2 LLM Discord Bot:</h2>
+<p>Now we need to write a script that would connect our Discord Bot to our local LLM model.</p>
+<p>Let’s go back to the terminal and create a copy of the <code>chat.py</code> and name it <code>bot.py</code> because we will need most of the code we wrote previously.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>cp chat.py bot.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Open <code>bot.py</code>.</li>
+</ul>
+<p>For the code of our bot we will use an example from <code>discord.py</code> repository which can be found in this link: <a href="https://github.com/Rapptz/discord.py/blob/master/examples/reply.py">https://github.com/Rapptz/discord.py/blob/master/examples/reply.py</a></p>
+<ul>
+<li>Copy all the code in <code>reply.py</code> and paste it at the end of your <code>bot.py</code> file<br>
+</li>
+<li>Now move <code>import discord</code> to the top</li>
+<li>Remove the original <code>asyncio.run(main())</code></li>
+<li>Remove the comment from the example.</li>
+<li>Move all the code in the <code>while</code> loop under <code>await message.reply('Hello!', mention_author=True)</code> and indent it properly</li>
+<li>Move <code>await message.reply('Hello!', mention_author=True)</code> under <code>print(f"Bot: {reply_content}")</code> and indent it properly</li>
+<li>Delete <code>print(f"Bot: {reply_content}")</code></li>
+<li>Edit <code>await message.reply('Hello!', mention_author=True)</code> to <code>await message.reply(reply_content, mention_author=True)</code></li>
+<li>Delete the <code>async def main</code> function</li>
+<li>In <code>if message.content.startswith('!hello'):</code> replace <code>!hello</code> with <code>!bot</code></li>
+<li>Replace<code>prompt = input("User: ")</code> with <code>stripped_msg = str(message.content).replace('!bot','').strip()</code></li>
+<li>Now in the <code>msg</code> variable, change <code>{prompt}</code> to <code>{stripped_mgs}</code></li>
+</ul>
+<p>We are almost done, we need to add our token that we put in the <code>.env</code> file earlier, to do so we need to add the following code to the top of the file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a><span class="im">import</span> os</span>
+<span id="cb42-2"><a href="#cb42-2"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb42-3"><a href="#cb42-3"></a>load_dotenv()</span>
+<span id="cb42-4"><a href="#cb42-4"></a>TOKEN <span class="op">=</span> os.getenv(<span class="st">"TOKEN"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and at the end of the file edit <code>client.run('token')</code> to <code>client.run(TOKEN)</code><br>
+Your <code>bot.py</code> file shoud look like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a><span class="im">import</span> json</span>
+<span id="cb43-2"><a href="#cb43-2"></a><span class="im">import</span> aiohttp</span>
+<span id="cb43-3"><a href="#cb43-3"></a><span class="im">import</span> asyncio</span>
+<span id="cb43-4"><a href="#cb43-4"></a><span class="im">import</span> discord</span>
+<span id="cb43-5"><a href="#cb43-5"></a><span class="im">import</span> os</span>
+<span id="cb43-6"><a href="#cb43-6"></a></span>
+<span id="cb43-7"><a href="#cb43-7"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv </span>
+<span id="cb43-8"><a href="#cb43-8"></a>load_dotenv()</span>
+<span id="cb43-9"><a href="#cb43-9"></a>TOKEN <span class="op">=</span> os.getenv(<span class="st">"TOKEN"</span>)</span>
+<span id="cb43-10"><a href="#cb43-10"></a></span>
+<span id="cb43-11"><a href="#cb43-11"></a>API_URL <span class="op">=</span> <span class="st">'http://localhost:8000/v1/chat/completions'</span></span>
+<span id="cb43-12"><a href="#cb43-12"></a>headers <span class="op">=</span> {<span class="st">"Content-Type"</span>:<span class="st">"application/json"</span>}</span>
+<span id="cb43-13"><a href="#cb43-13"></a></span>
+<span id="cb43-14"><a href="#cb43-14"></a>payload <span class="op">=</span> {</span>
+<span id="cb43-15"><a href="#cb43-15"></a>    <span class="st">"max_tokens"</span>:<span class="dv">512</span>,</span>
+<span id="cb43-16"><a href="#cb43-16"></a>    <span class="st">"messages"</span>: []</span>
+<span id="cb43-17"><a href="#cb43-17"></a>}</span>
+<span id="cb43-18"><a href="#cb43-18"></a></span>
+<span id="cb43-19"><a href="#cb43-19"></a><span class="kw">class</span> MyClient(discord.Client):</span>
+<span id="cb43-20"><a href="#cb43-20"></a>    <span class="cf">async</span> <span class="kw">def</span> on_ready(<span class="va">self</span>):</span>
+<span id="cb43-21"><a href="#cb43-21"></a>        <span class="bu">print</span>(<span class="ss">f'Logged in as </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>user<span class="sc">}</span><span class="ss"> (ID: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>user<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">)'</span>)</span>
+<span id="cb43-22"><a href="#cb43-22"></a>        <span class="bu">print</span>(<span class="st">'------'</span>)</span>
+<span id="cb43-23"><a href="#cb43-23"></a></span>
+<span id="cb43-24"><a href="#cb43-24"></a>    <span class="cf">async</span> <span class="kw">def</span> on_message(<span class="va">self</span>, message):</span>
+<span id="cb43-25"><a href="#cb43-25"></a>        <span class="co"># we do not want the bot to reply to itself</span></span>
+<span id="cb43-26"><a href="#cb43-26"></a>        <span class="cf">if</span> message.author.<span class="bu">id</span> <span class="op">==</span> <span class="va">self</span>.user.<span class="bu">id</span>:</span>
+<span id="cb43-27"><a href="#cb43-27"></a>            <span class="cf">return</span></span>
+<span id="cb43-28"><a href="#cb43-28"></a></span>
+<span id="cb43-29"><a href="#cb43-29"></a>        <span class="cf">if</span> message.content.startswith(<span class="st">'!bot'</span>):</span>
+<span id="cb43-30"><a href="#cb43-30"></a>            stripped_msg <span class="op">=</span> <span class="bu">str</span>(message.content).replace(<span class="st">'!bot'</span>,<span class="st">''</span>).strip()</span>
+<span id="cb43-31"><a href="#cb43-31"></a>            msg <span class="op">=</span> {</span>
+<span id="cb43-32"><a href="#cb43-32"></a>                <span class="st">"content"</span>: <span class="ss">f"</span><span class="sc">{</span>stripped_msg<span class="sc">}</span><span class="ss"> ### response: "</span>,</span>
+<span id="cb43-33"><a href="#cb43-33"></a>                <span class="st">"role"</span>: <span class="st">"user"</span></span>
+<span id="cb43-34"><a href="#cb43-34"></a>            }</span>
+<span id="cb43-35"><a href="#cb43-35"></a>            payload[<span class="st">"messages"</span>].append(msg)</span>
+<span id="cb43-36"><a href="#cb43-36"></a>            <span class="cf">async</span> <span class="cf">with</span> aiohttp.ClientSession() <span class="im">as</span> session:</span>
+<span id="cb43-37"><a href="#cb43-37"></a>                <span class="cf">async</span> <span class="cf">with</span> session.post(API_URL, data <span class="op">=</span> json.dumps(payload), headers <span class="op">=</span> headers) <span class="im">as</span> resp:</span>
+<span id="cb43-38"><a href="#cb43-38"></a>                    reply <span class="op">=</span> <span class="cf">await</span> resp.json()</span>
+<span id="cb43-39"><a href="#cb43-39"></a>                    reply_content <span class="op">=</span> reply[<span class="st">"choices"</span>][<span class="dv">0</span>][<span class="st">"message"</span>][<span class="st">"content"</span>]</span>
+<span id="cb43-40"><a href="#cb43-40"></a>                    <span class="cf">await</span> message.reply(reply_content, mention_author<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb43-41"><a href="#cb43-41"></a>            msg_idx <span class="op">=</span> payload[<span class="st">"messages"</span>].index(msg)</span>
+<span id="cb43-42"><a href="#cb43-42"></a>            payload[<span class="st">"messages"</span>][msg_idx][<span class="st">"content"</span>] <span class="op">+=</span> reply_content </span>
+<span id="cb43-43"><a href="#cb43-43"></a></span>
+<span id="cb43-44"><a href="#cb43-44"></a></span>
+<span id="cb43-45"><a href="#cb43-45"></a>intents <span class="op">=</span> discord.Intents.default()</span>
+<span id="cb43-46"><a href="#cb43-46"></a>intents.message_content <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb43-47"><a href="#cb43-47"></a></span>
+<span id="cb43-48"><a href="#cb43-48"></a>client <span class="op">=</span> MyClient(intents<span class="op">=</span>intents)</span>
+<span id="cb43-49"><a href="#cb43-49"></a>client.run(TOKEN)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Save it and run it, you should a message like this in the terminal:</p>
+<pre><code>2023-11-07 17:10:33 INFO     discord.client logging in using static token
+2023-11-07 17:10:34 INFO     discord.gateway Shard ID None has connected to Gateway (Session ID: ff89fsdf2342502081fe39).
+Logged in as llm-bot#8912 (ID: 1173453534535)
+------</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a>python bot.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Go back to your Discord Client, you will see that the bot is now <code>Online</code>.<br>
+To interact with the bot you must start your message with <code>!bot</code> that’s the flag that will prompt the bot to answer.</p>
+<p>Congratulations you have now a working LLM Discord Bot!<br>
+<img src="6.png" class="img-fluid" alt="final screenshot"></p>
+<p>You can find the code used in this tutorial in my <a href="https://github.com/HaoES/discord-LLM-bot">GitHub Repository</a><br>
+If you have any questions feel free to <a href="mailto:hamza.essamaali@gmail.com">Contact Me</a></p>
 
 
 </section>
