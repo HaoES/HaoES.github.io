@@ -4,9 +4,6 @@ image: me.jpg
 about:
   template: jolla
   links:
-    - icon: twitter
-      text: Twitter
-      href: https://twitter.com/0Kiriyama
     - icon: linkedin
       text: LinkedIn
       href: https://linkedin.com/in/hamza-es
