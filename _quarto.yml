@@ -10,8 +10,6 @@ website:
         href: about.qmd 
       - icon: github
         href: https://github.com/HaoES
-      - icon: twitter
-        href: https://twitter.com/0Kiriyama
       - icon: linkedin
         href: https://www.linkedin.com/in/hamza-es/
   
